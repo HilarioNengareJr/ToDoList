@@ -7,6 +7,14 @@ const Header = () => {
 
     const [currentDate, setCurrentDate] = useState(new Date());
     const [isDropdownMenuActive, setDropdownMenuActive] = useState(false);
+    const [buttons, setButtons] = useState([
+        { hue: 227, isThemeActive: false },
+        { hue: 298, isThemeActive: false },
+        { hue: 344, isThemeActive: false },
+        { hue: 2, isThemeActive: false },
+        { hue: 153, isThemeActive: false },
+        { hue: 177, isThemeActive: false },
+        { hue: 206, isThemeActive: false }]);
     const [isTogglerActive, setTogglerActive] = useState(false);
     const [isModalActive, setModalActive] = useState(false);
 
@@ -15,19 +23,19 @@ const Header = () => {
         day: "numeric",
         month: "long",
         year: "numeric",
-    })
+    });
 
-    // dry theme buttons
+    const toggleTheme = (index) => {
+        const updatedButtons = buttons.map((button, i) => {
+            if (index === i) {
+                return { ...button, isThemeActive: !button.isThemeActive };
+            } else {
+                return button;
+            }
+        });
+        setButtons(updatedButtons);
+    }
 
-    const buttons = [
-        { hue: 227, isActive: true },
-        { hue: 298, isActive: false },
-        { hue: 344, isActive: false },
-        { hue: 2, isActive: false },
-        { hue: 153, isActive: false },
-        { hue: 177, isActive: false },
-        { hue: 206, isActive: false }
-    ];
 
     const toggleMenu = () => {
         setTogglerActive(!isTogglerActive);
@@ -68,8 +76,8 @@ const Header = () => {
 
                                 <div className='theme-btn-group'>
                                     {
-                                        buttons.map(button =>
-                                            <ThemeBtn key={button.hue} hue={button.hue} isActive={button.isActive} />)
+                                        buttons.map((button, index) =>
+                                            <ThemeBtn key={button.hue} hue={button.hue} isActive={button.isActive} onClick={() => toggleTheme(index)} />)
                                     }
                                 </div>
                             </li>

@@ -1,8 +1,8 @@
 import React from 'react';
 
-const ThemeBtn = ({hue, isActive}) => {
+const ThemeBtn = ({hue, isThemeActive}) => {
 
-    const ButtonClass = isActive ? "theme-btn active" : "theme-btn";
+    const ButtonClass = isThemeActive ? "theme-btn active" : "theme-btn";
 
     return (
         <button className={ButtonClass} style={{'--hue': hue}} data-hue={hue}>
