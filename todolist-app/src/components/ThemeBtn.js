@@ -1,11 +1,14 @@
 import React from 'react';
 
-const ThemeBtn = ({hue, isThemeActive}) => {
+const ThemeBtn = ({hue, isThemeActive, onClick}) => {
 
-    const ButtonClass = isThemeActive ? "theme-btn active" : "theme-btn";
+    const handleClick = () => {
+        onClick();
+    }
 
     return (
-        <button className={ButtonClass} style={{'--hue': hue}} data-hue={hue}>
+        
+        <button className={isThemeActive ? "theme-btn active" : "theme-btn"} style={{'--hue': hue}} onClick={handleClick} data-hue={hue}>
 
         </button>
     );

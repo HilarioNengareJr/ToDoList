@@ -7,6 +7,8 @@ const Header = () => {
 
     const [currentDate, setCurrentDate] = useState(new Date());
     const [isDropdownMenuActive, setDropdownMenuActive] = useState(false);
+    const [activeButtonIndex, setActiveButtonIndex] = useState(null);
+
     const [buttons, setButtons] = useState([
         { hue: 227, isThemeActive: false },
         { hue: 298, isThemeActive: false },
@@ -28,12 +30,14 @@ const Header = () => {
     const toggleTheme = (index) => {
         const updatedButtons = buttons.map((button, i) => {
             if (index === i) {
-                return { ...button, isThemeActive: !button.isThemeActive };
+                return { ...button, isThemeActive: true };
             } else {
-                return button;
+                return { ...button, isThemeActive: false };
             }
         });
+
         setButtons(updatedButtons);
+        setActiveButtonIndex(index);
     }
 
 
@@ -77,7 +81,7 @@ const Header = () => {
                                 <div className='theme-btn-group'>
                                     {
                                         buttons.map((button, index) =>
-                                            <ThemeBtn key={button.hue} hue={button.hue} isActive={button.isActive} onClick={() => toggleTheme(index)} />)
+                                            <ThemeBtn key={button.hue} hue={button.hue} isThemeActive={button.isThemeActive} onClick={() => toggleTheme(index)} />)
                                     }
                                 </div>
                             </li>
