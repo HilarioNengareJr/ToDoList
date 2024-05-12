@@ -7,10 +7,9 @@ const Header = () => {
 
     const [currentDate, setCurrentDate] = useState(new Date());
     const [isDropdownMenuActive, setDropdownMenuActive] = useState(false);
-    const [activeButtonIndex, setActiveButtonIndex] = useState(null);
 
     const [buttons, setButtons] = useState([
-        { hue: 227, isThemeActive: false },
+        { hue: 227, isThemeActive: true },
         { hue: 298, isThemeActive: false },
         { hue: 344, isThemeActive: false },
         { hue: 2, isThemeActive: false },
@@ -27,19 +26,13 @@ const Header = () => {
         year: "numeric",
     });
 
-    const toggleTheme = (index) => {
-        const updatedButtons = buttons.map((button, i) => {
-            if (index === i) {
-                return { ...button, isThemeActive: true };
-            } else {
-                return { ...button, isThemeActive: false };
-            }
-        });
-
+    const toggleTheme = (hue) => {
+        const updatedButtons = buttons.map((button) => ({
+            ...button, isThemeActive: button.hue === hue,
+        }));
+    
         setButtons(updatedButtons);
-        setActiveButtonIndex(index);
-    }
-
+    };
 
     const toggleMenu = () => {
         setTogglerActive(!isTogglerActive);
@@ -63,8 +56,8 @@ const Header = () => {
                 <p className='header-time'>
                     {formattedDate}
                 </p>
-
-                <div className='dropdown-wrapper'>
+            </div>
+            <div className='dropdown-wrapper'>
                     <button className={isTogglerActive ? 'menu-btn active' : 'menu-btn'} aria-label='Toggle menu' onClick={toggleMenu}>
                         <ion-icon name="ellipsis-horizontal" aria-hidden="true"></ion-icon>
                     </button>
@@ -80,8 +73,8 @@ const Header = () => {
 
                                 <div className='theme-btn-group'>
                                     {
-                                        buttons.map((button, index) =>
-                                            <ThemeBtn key={button.hue} hue={button.hue} isThemeActive={button.isThemeActive} onClick={() => toggleTheme(index)} />)
+                                        buttons.map((button) =>
+                                            <ThemeBtn key={button.hue} hue={button.hue} isThemeActive={button.isThemeActive} onClick={toggleTheme} />)
                                     }
                                 </div>
                             </li>
@@ -96,7 +89,6 @@ const Header = () => {
 
 
                 </div>
-            </div>
         </header>
     );
 }
