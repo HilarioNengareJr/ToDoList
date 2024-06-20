@@ -12,9 +12,7 @@ const Main = () => {
                     your tasks are?
                 </h2>
             </div>
-
-
-            {/* Dynamic js here */}
+            
             <ul className='task-list'></ul>
 
             <div className='input-wrapper' title="Add a task in 'My Day'">
