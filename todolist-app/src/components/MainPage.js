@@ -1,7 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './MainPage.css';
 
 const Main = () => {
+
+    const [tasks, setTasks] = useState([]);
+    const [taskItem, setTaskItem] = useState('');
+
+    const handleTaskAddition = () => {
+        if (taskItem.trim() !== '') {
+            setTasks([...tasks, { id: Date.now(), item: taskItem }]);
+            setTaskItem('');
+        }
+    }
+
+    const handleTaskRemoval = (taskId) => {
+        setTasks(tasks.filter(task => task.id !== taskId));
+    }
 
     return (
         <section>
@@ -12,7 +26,7 @@ const Main = () => {
                     your tasks are?
                 </h2>
             </div>
-            
+
             <ul className='task-list'></ul>
 
             <div className='input-wrapper' title="Add a task in 'My Day'">
